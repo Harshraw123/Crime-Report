@@ -1,15 +1,11 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Outfit } from "next/font/google";
+import Provider from "./provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Only include the fonts you actually use
+const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -19,10 +15,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={outfit.className}>
+        <ClerkProvider>
+<Provider>
+      
+          {children}
+          </Provider>
+ 
+        </ClerkProvider>
+     
       </body>
     </html>
   );
